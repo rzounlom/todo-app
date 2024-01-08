@@ -14,8 +14,10 @@ const todo: Todo = {
 
 const TodoList: FC<TodoListProps> = ({ todos }) => {
   return (
-    <div className="max-h-[368px] w-full border-black border-2">
-      <TodoRow todo={todo} />
+    <div className="max-h-[368px] h-[auto] w-full mt-[16px] bg-[#E3E4F1] rounded overflow-auto shadow-2xl">
+      {todos.map((todo: Todo) => (
+        <TodoRow todo={todo} key={todo.id} />
+      ))}
     </div>
   );
 };
