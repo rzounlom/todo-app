@@ -19,7 +19,7 @@ const Header: FC = () => {
   };
 
   return (
-    <div className="w-[327px] md:w-[540px] h-[15vh] flex justify-between items-center border-2 border-black">
+    <div className="w-[327px] md:w-[540px] h-[15vh] flex justify-between items-center">
       <div className="w-[109px] h-[20px] md:w-[167px] sm:h-[40px] relative">
         <Image src={"/images/logo.svg"} layout="fill" alt={"todo logo"} />
       </div>
