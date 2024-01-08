@@ -1,16 +1,15 @@
 "use client";
 
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, FC, KeyboardEvent } from "react";
 
 type InputProps = {
   name: string;
   value: string;
   placeholder?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: Function;
+  onSubmit: (e: KeyboardEvent<HTMLInputElement>) => void;
 };
-
-const input: FC<InputProps> = ({
+const Input: FC<InputProps> = ({
   name,
   value,
   placeholder,
@@ -18,14 +17,15 @@ const input: FC<InputProps> = ({
   onSubmit,
 }) => {
   // submit on enter
-  const handleKeyDown = (e: { key: string }) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      onSubmit();
+      onSubmit(e);
     }
   };
 
   return (
     <input
+      className="w-full h-[48px] rounded bg-[#FFF]shadow-md"
       name={name}
       value={value}
       placeholder={placeholder ? placeholder : "Submit..."}
@@ -36,4 +36,4 @@ const input: FC<InputProps> = ({
   );
 };
 
-export default input;
+export default Input;
