@@ -8,7 +8,7 @@ type TodoRowProps = {
 
 const TodoRow: FC<TodoRowProps> = ({ todo }) => {
   return (
-    <div className="w-full h-[48px] flex justify-between items-center rounded bg-[#FFF] dark:bg-[#25273D] px-5 shadow-md">
+    <div className="w-full h-[48px] flex justify-between items-center rounded bg-[#FFF] dark:bg-[#25273D] px-5 mt-[1px] shadow-md">
       <div className="flex items-center">
         <div className="hover:cursor-pointer h-[20px] w-[20px] rounded-full">
           <Image
