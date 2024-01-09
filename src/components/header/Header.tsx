@@ -3,7 +3,7 @@ import Image from "next/legacy/image";
 import { useTheme } from "next-themes";
 
 const Header: FC = () => {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   const toggleTheme = () => {
     switch (resolvedTheme) {
