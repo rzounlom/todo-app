@@ -1,4 +1,5 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
+
 import Image from "next/image";
 import { Todo } from "@/types/todo";
 import { useTheme } from "next-themes";
@@ -8,16 +9,22 @@ type TodoRowProps = {
 };
 
 const TodoRow: FC<TodoRowProps> = ({ todo }) => {
+  const [hasMounted, setHasMounted] = useState(false);
   const { resolvedTheme } = useTheme();
 
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
   const todoTextStyles = () => {
+    let baseStyle = todo.completed ? "line-through" : "";
     let textColor;
 
     if (todo.completed) {
       textColor = resolvedTheme === "light" ? "#D1D2DA" : "#4D5067";
-      return `text-[${textColor}] line-through`;
+      return `text-[${textColor}] ${baseStyle}`;
     } else {
-      return "text-[#494C6B] dark:text-[#C8CBE7]";
+      return `text-[#494C6B] dark:text-[#C8CBE7] ${baseStyle}`;
     }
   };
 
@@ -30,6 +37,10 @@ const TodoRow: FC<TodoRowProps> = ({ todo }) => {
         : "images/unchecked-dark.svg";
     }
   };
+
+  if (!hasMounted) {
+    return null; // Return null if client side rendering is not done
+  }
 
   return (
     <div className="w-full h-[48px] flex justify-between items-center rounded bg-[#FFF] dark:bg-[#25273D] px-5 mt-[1px] shadow-md">
