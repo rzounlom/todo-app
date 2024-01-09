@@ -1,19 +1,23 @@
 import { FC } from "react";
 import { type Todo } from "@/types/todo";
 import TodoRow from "../todo-card/TodoRow";
+import Spinner from "../spinner/Spinner";
 
 type TodoListProps = {
   todos: Todo[];
   activeTodoCount: number;
+  loading?: boolean;
 };
 
-const todo: Todo = {
-  id: 1,
-  text: "Learn Vue.js 3",
-  completed: true,
-};
+const TodoList: FC<TodoListProps> = ({ todos, activeTodoCount, loading }) => {
+  if (loading) {
+    return (
+      <div className="min-h-[368px] w-full flex justify-center items-center mt-[16px] bg-[#E3E4F1] dark:bg-[#393A4B] rounded">
+        <Spinner />
+      </div>
+    );
+  }
 
-const TodoList: FC<TodoListProps> = ({ todos, activeTodoCount }) => {
   return (
     <div className="max-h-[368px] h-[auto] w-full mt-[16px] bg-[#E3E4F1] dark:bg-[#393A4B] rounded overflow-auto shadow-2xl">
       {todos.map((todo: Todo) => (

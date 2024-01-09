@@ -7,13 +7,19 @@ interface TodoFooterProps {
   activeTab: "all" | "active" | "completed";
   setActiveTab: Dispatch<SetStateAction<"all" | "active" | "completed">>;
   todoLength: number;
+  loading?: boolean;
 }
 
 const TodoFooter: FC<TodoFooterProps> = ({
   activeTab,
   setActiveTab,
   todoLength,
+  loading,
 }) => {
+  if (loading) {
+    return null;
+  }
+
   return (
     <div className="w-full h-[48px] flex justify-center items-center rounded bg-[#FFF] dark:bg-[#25273D] text-[#9495A5] font-bold px-6 mt-[16px] md:mt-[1px] shadow-md">
       <div className="w-full h-full flex justify-center md:justify-between items-center">

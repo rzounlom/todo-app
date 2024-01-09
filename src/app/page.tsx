@@ -13,7 +13,7 @@ const Home: FC = () => {
   const [newTodo, setNewTodo] = useState("");
   const [todos, setTodos] = useState([] as Todo[]);
   const [filteredTodos, setFilteredTodos] = useState(todos as Todo[]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [activeTodoCount, setActiveTodoCount] = useState(0);
 
   const [activeTab, setActiveTab] = useState<"all" | "active" | "completed">(
@@ -44,12 +44,15 @@ const Home: FC = () => {
   };
 
   const fetchTodos = async () => {
+    setLoading(true);
     try {
       const { data } = await getTodos();
       setTodos(data);
       setFilteredTodos(data);
     } catch (error) {
       console.log({ error });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,11 +90,16 @@ const Home: FC = () => {
           value={newTodo}
           placeholder="Create a new todo..."
         />
-        <TodoList todos={filteredTodos} activeTodoCount={activeTodoCount} />
+        <TodoList
+          todos={filteredTodos}
+          activeTodoCount={activeTodoCount}
+          loading={loading}
+        />
         <TodoFooter
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           todoLength={activeTodoCount}
+          loading={loading}
         />
       </div>
     </div>
