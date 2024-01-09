@@ -2,7 +2,7 @@ import { FC } from "react";
 
 const Spinner: FC = () => {
   return (
-    <div className="w-[16px] h-[16px] rounded-full animate-spin border border-solid border-yellow-500 border-t-transparent"></div>
+    <div className="w-[100px] h-[100px] rounded-full animate-spin  border-solid border-[6px] border-blue-500 border-t-transparent"></div>
   );
 };
 
