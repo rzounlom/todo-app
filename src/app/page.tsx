@@ -1,45 +1,78 @@
 "use client";
 
 import { ChangeEvent, FC, KeyboardEvent, useEffect, useState } from "react";
+import { addTodo, getTodos } from "@/utils/api";
 
 import Header from "@/components/header/Header";
 import Input from "@/components/ui/Input";
+import { Todo } from "@/types/todo";
 import TodoFooter from "@/components/todo-footer/TodoFooter";
 import TodoList from "@/components/todo-list/TodoList";
-import { defaultTodos } from "@/data/todos";
 
 const Home: FC = () => {
   const [newTodo, setNewTodo] = useState("");
-  const [todos, setTodos] = useState(defaultTodos);
+  const [todos, setTodos] = useState([] as Todo[]);
+  const [filteredTodos, setFilteredTodos] = useState(todos as Todo[]);
+  const [loading, setLoading] = useState(false);
+  const [activeTodoCount, setActiveTodoCount] = useState(0);
+
   const [activeTab, setActiveTab] = useState<"all" | "active" | "completed">(
     "all"
   );
-  const [activeTodoCount, setActiveTodoCount] = useState(0);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setNewTodo(e.target.value);
 
-  const handleSubmit = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleSubmit = async (e: KeyboardEvent<HTMLInputElement>) => {
+    setLoading(true);
     e.preventDefault();
-    console.log(newTodo);
-    setNewTodo("");
+    const todo: Partial<Todo> = {
+      text: newTodo.trim(),
+    };
+
+    try {
+      const addedTodo = await addTodo(todo);
+      await fetchTodos();
+    } catch (error) {
+      if (error) {
+        console.log({ error });
+      }
+    } finally {
+      setLoading(false);
+      setNewTodo("");
+    }
+  };
+
+  const fetchTodos = async () => {
+    try {
+      const { data } = await getTodos();
+      setTodos(data);
+      setFilteredTodos(data);
+    } catch (error) {
+      console.log({ error });
+    }
   };
 
   useEffect(() => {
     const handleFilterTodos = () => {
       switch (activeTab) {
         case "active":
-          return defaultTodos.filter((todo) => !todo.completed);
+          return todos.filter((todo) => !todo.completed);
         case "completed":
-          return defaultTodos.filter((todo) => todo.completed);
+          return todos.filter((todo) => todo.completed);
         default:
-          return defaultTodos;
+          return todos;
       }
     };
 
-    setTodos(handleFilterTodos());
-    setActiveTodoCount(defaultTodos.filter((todo) => !todo.completed).length);
-  }, [activeTab]);
+    setFilteredTodos(handleFilterTodos());
+    // Uncomment and update the line below if you need to set active todo count
+    setActiveTodoCount(todos.filter((todo) => !todo.completed).length);
+  }, [activeTab, todos]);
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
   return (
     <div
@@ -54,7 +87,7 @@ const Home: FC = () => {
           value={newTodo}
           placeholder="Create a new todo..."
         />
-        <TodoList todos={todos} activeTodoCount={activeTodoCount} />
+        <TodoList todos={filteredTodos} activeTodoCount={activeTodoCount} />
         <TodoFooter
           activeTab={activeTab}
           setActiveTab={setActiveTab}
