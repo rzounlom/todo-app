@@ -25,7 +25,7 @@ const Input: FC<InputProps> = ({
 
   return (
     <input
-      className="w-full h-[48px] rounded bg-[#FFF] dark:bg-[#25273D] px-10 shadow-md"
+      className="w-full h-[48px] rounded bg-[#FFF] dark:bg-[#25273D] text-[#9495A5] dark:text-[#767992] px-10 shadow-md"
       name={name}
       value={value}
       placeholder={placeholder ? placeholder : "Submit..."}
