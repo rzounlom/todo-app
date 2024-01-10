@@ -30,3 +30,18 @@ export const addTodo = async (todo: Partial<Todo>) => {
     throw new Error("Something went wrong on API server!");
   }
 };
+
+export const updateTodo = async (todo: Partial<Todo>) => {
+  const res = await fetch(
+    new Request(createURL(`/api/todos/${todo.id}`), {
+      method: "PATCH",
+      body: JSON.stringify({ todo }),
+    })
+  );
+
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw new Error("Something went wrong on API server!");
+  }
+};
