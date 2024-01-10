@@ -24,7 +24,7 @@ An HTML CSS and Javascript interactive rating component.
 
 ### Links
 
-- Solution URL: https://www.frontendmentor.io/solutions/responsive-landing-page-using-html-sass-and-js-X_jxQNadvI
+- Solution URL: https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW/hub?share=true
 - Live Site URL: https://todo-app-xi-flame.vercel.app/
 - GitHub Repo: https://github.com/rzounlom/todo-app
 
