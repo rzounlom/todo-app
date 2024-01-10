@@ -1,8 +1,8 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { deleteTodoById, updateTodo } from "@/utils/api";
 
 import Image from "next/image";
 import { Todo } from "@/types/todo";
-import { updateTodo } from "@/utils/api";
 import { useTheme } from "next-themes";
 
 type TodoRowProps = {
@@ -49,6 +49,15 @@ const TodoRow: FC<TodoRowProps> = ({ todo, fetchTodos }) => {
     }
   };
 
+  const deleteTodo = async () => {
+    try {
+      await deleteTodoById(todo);
+      await fetchTodos();
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
   if (!hasMounted) {
     return null; // Return null if client side rendering is not done
   }
@@ -75,7 +84,7 @@ const TodoRow: FC<TodoRowProps> = ({ todo, fetchTodos }) => {
         </div>
       </div>
 
-      <div className="hover:cursor-pointer">
+      <div className="hover:cursor-pointer" onClick={() => deleteTodo()}>
         <Image
           src={"/images/icon-cross.svg"}
           height={20}

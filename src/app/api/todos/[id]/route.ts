@@ -19,3 +19,19 @@ export const PATCH = async (req: Request, res: Response) => {
 
   return NextResponse.json({ data: updatedTodo });
 };
+
+export const DELETE = async (req: Request, res: Response) => {
+  if (!req.body) {
+    return NextResponse.next();
+  }
+
+  const { todo } = await req.json(); // Extract the text from the request body
+
+  const deletedTodo = await prisma.todo.delete({
+    where: {
+      id: todo.id,
+    },
+  });
+
+  return NextResponse.json({ data: deletedTodo });
+};
