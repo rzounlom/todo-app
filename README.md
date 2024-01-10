@@ -58,8 +58,10 @@ Will work on a cleaner folder structure and testing in my next project
 - Frontend Mentor - https://www.frontendmentor.io/profile/@rzounlom
 - GitHub - https://github.com/rzounlom
 
-## Running this app locall
+## Running this app locally
 
 - Download the repo and install all dependencies --> npm install, npm i, yarn, or yarn install
-- Create a make sure you create a .env file and add a valid mogo database url. You can find the instructions on the Prisma website --> https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/mongodb/connect-your-database-typescript-mongodb
+- Create a .env file at the root of your repo and add it to your .gitignore file. NOTE: make sure you and add a valid mogo database url. You can find the instructions on the Prisma website --> https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/mongodb/connect-your-database-typescript-mongodb
+- run npx prisma generate
 - run the server - npm run dev, or yarn dev
+- visit the site in the browser at http://localhost:3000
