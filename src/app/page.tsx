@@ -93,6 +93,7 @@ const Home: FC = () => {
           todos={filteredTodos}
           activeTodoCount={activeTodoCount}
           loading={loading}
+          fetchTodos={fetchTodos}
         />
         <TodoFooter
           activeTab={activeTab}
