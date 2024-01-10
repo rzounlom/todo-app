@@ -3,6 +3,9 @@ import { prisma } from "@/utils/db";
 
 export const GET = async (req: Request, res: Response) => {
   const todos = await prisma.todo.findMany({});
+  todos.sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
 
   return NextResponse.json({ data: todos });
 };
