@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, FC, KeyboardEvent, useEffect, useState } from "react";
-import { addTodo, getTodos } from "@/utils/api";
+import { addTodo, deleteCompletedTodos, getTodos } from "@/utils/api";
 
 import Header from "@/components/header/Header";
 import Input from "@/components/ui/Input";
@@ -56,6 +56,23 @@ const Home: FC = () => {
     }
   };
 
+  const clearCompletedTodos = async () => {
+    setLoading(true);
+    const completedTodos = todos
+      .filter((todo) => todo.completed)
+      .map((todo) => todo.id.toString());
+
+    try {
+      const { data } = await deleteCompletedTodos(completedTodos);
+      console.log("delete todo data: ", { data });
+      await fetchTodos();
+    } catch (error) {
+      console.log({ error });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const handleFilterTodos = () => {
       switch (activeTab) {
@@ -100,6 +117,7 @@ const Home: FC = () => {
           setActiveTab={setActiveTab}
           todoLength={activeTodoCount}
           loading={loading}
+          clearCompletedTodos={clearCompletedTodos}
         />
       </div>
     </div>

@@ -60,3 +60,18 @@ export const deleteTodoById = async (todo: Partial<Todo>) => {
     throw new Error("Something went wrong on API server!");
   }
 };
+
+export const deleteCompletedTodos = async (todoIds: string[]) => {
+  const res = await fetch(
+    new Request(createURL(`/api/todos`), {
+      method: "DELETE",
+      body: JSON.stringify({ todoIds }),
+    })
+  );
+
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw new Error("Something went wrong on API server!");
+  }
+};

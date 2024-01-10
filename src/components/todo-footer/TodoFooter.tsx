@@ -8,6 +8,7 @@ interface TodoFooterProps {
   setActiveTab: Dispatch<SetStateAction<"all" | "active" | "completed">>;
   todoLength: number;
   loading?: boolean;
+  clearCompletedTodos: () => Promise<void>;
 }
 
 const TodoFooter: FC<TodoFooterProps> = ({
@@ -15,6 +16,7 @@ const TodoFooter: FC<TodoFooterProps> = ({
   setActiveTab,
   todoLength,
   loading,
+  clearCompletedTodos,
 }) => {
   return (
     <div className="w-full h-[48px] flex justify-center items-center rounded bg-[#FFF] dark:bg-[#25273D] text-[#9495A5] font-bold px-6 mt-[52px] md:mt-[1px] shadow-md">
@@ -36,7 +38,10 @@ const TodoFooter: FC<TodoFooterProps> = ({
                 </div>
               ))}
             </div>
-            <div className="hover:cursor-pointer hidden md:block">
+            <div
+              className="hover:cursor-pointer hidden md:block"
+              onClick={() => clearCompletedTodos()}
+            >
               Clear Completed
             </div>
           </>
