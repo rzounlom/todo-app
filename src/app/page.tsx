@@ -31,7 +31,7 @@ const Home: FC = () => {
     };
 
     try {
-      const addedTodo = await addTodo(todo);
+      await addTodo(todo);
       await fetchTodos();
     } catch (error) {
       if (error) {
@@ -69,7 +69,6 @@ const Home: FC = () => {
     };
 
     setFilteredTodos(handleFilterTodos());
-    // Uncomment and update the line below if you need to set active todo count
     setActiveTodoCount(todos.filter((todo) => !todo.completed).length);
   }, [activeTab, todos]);
 
