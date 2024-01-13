@@ -15,7 +15,7 @@ This is a solution to the [Todo app challenge on Frontend Mentor](https://www.fr
 
 ## Overview
 
-An HTML CSS and Javascript interactive rating component.
+A full-stack todo app built with NextJS, Tailwind, and Prisma.
 
 ### Screenshot
 
